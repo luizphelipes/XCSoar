@@ -12,6 +12,7 @@
 #include "Dialogs/DialogSettings.hpp"
 #include "DisplaySettings.hpp"
 #include "Audio/Settings.hpp"
+#include "AISettings.hpp"
 
 #include <chrono>
 #include <cstdint>
@@ -79,6 +80,7 @@ struct UISettings {
   PageSettings pages;
   DialogSettings dialog;
   SoundSettings sound;
+  AISettings ai;
 
   void SetDefaults() noexcept;
 

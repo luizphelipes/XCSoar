@@ -10,6 +10,7 @@ class DrawThread;
 inline struct NetComponents *net_components;
 inline struct DataComponents *data_components;
 inline struct BackendComponents *backend_components;
+inline struct AIComponents *ai_components;
 
 // other global objects
 extern FileCache *file_cache;

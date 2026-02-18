@@ -12,6 +12,7 @@ LIBHTTP_SOURCES = \
 	$(SRC)/lib/curl/CoStreamRequest.cxx \
 	$(SRC)/net/http/CoDownloadToFile.cpp \
 	$(SRC)/lib/curl/Global.cxx \
+	$(SRC)/net/http/GeminiClient.cpp \
 	$(SRC)/net/http/Init.cpp
 
 ifeq ($(TARGET_IS_OSX)$(USE_HOMEBREW),yn)

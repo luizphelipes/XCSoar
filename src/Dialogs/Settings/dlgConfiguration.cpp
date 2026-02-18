@@ -62,6 +62,7 @@
 #endif
 
 #include "Panels/WeGlideConfigPanel.hpp"
+#include "Panels/AIConfigPanel.hpp"
 
 #include <cassert>
 
@@ -134,6 +135,7 @@ static constexpr TabMenuPage setup_pages[] = {
 #ifdef HAVE_VOLUME_CONTROLLER
   { N_("Audio"), CreateAudioConfigPanel },
 #endif
+  { _("Assistente IA"), CreateAIConfigPanel },
   { nullptr, nullptr }
 };
 
@@ -153,20 +155,26 @@ OnUserLevel(bool expert) noexcept;
 class ConfigurationExtraButtons final
   : public NullWidget {
   struct Layout {
-    PixelRect expert, button2, button1;
+    PixelRect expert, button_ia, button2, button1;
 
-    Layout(const PixelRect &rc):expert(rc), button2(rc), button1(rc) {
+    Layout(const PixelRect &rc):expert(rc), button_ia(rc), button2(rc), button1(rc) {
       const unsigned height = rc.GetHeight();
       const unsigned max_control_height = ::Layout::GetMaximumControlHeight();
 
-      if (height >= 3 * max_control_height) {
+      if (height >= 4 * max_control_height) {
         expert.bottom = expert.top + max_control_height;
 
-        button1.top = button2.bottom = rc.bottom - max_control_height;
-        button2.top = button2.bottom - max_control_height;
+        button1.top = rc.bottom - max_control_height;
+        button2.top = button1.top - max_control_height;
+        button_ia.top = button2.top - max_control_height;
+        
+        button1.bottom = rc.bottom;
+        button2.bottom = button1.top;
+        button_ia.bottom = button2.top;
       } else {
-        expert.right = button2.left = unsigned(rc.left * 2 + rc.right) / 3;
-        button2.right = button1.left = unsigned(rc.left + rc.right * 2) / 3;
+        expert.right = button_ia.left = unsigned(rc.left * 3 + rc.right) / 4;
+        button_ia.right = button2.left = unsigned(rc.left * 2 + rc.right * 2) / 4;
+        button2.right = button1.left = unsigned(rc.left + rc.right * 3) / 4;
       }
     }
   };
@@ -174,7 +182,7 @@ class ConfigurationExtraButtons final
   const DialogLook &look;
 
   CheckBoxControl expert;
-  Button button2, button1;
+  Button button_ia, button2, button1;
   bool borrowed2, borrowed1;
 
 public:
@@ -219,6 +227,8 @@ protected:
                   layout.expert, style,
                   [](bool value){ OnUserLevel(value); });
 
+    button_ia.Create(parent, look.button, _("Assistente IA"), layout.button2, style,
+                     [](){ dlgAIAssistantShowModal(); });
     button2.Create(parent, look.button, "", layout.button2, style);
     button1.Create(parent, look.button, "", layout.button1, style);
   }
@@ -228,6 +238,8 @@ protected:
 
     expert.SetState(CommonInterface::GetUISettings().dialog.expert);
     expert.MoveAndShow(layout.expert);
+
+    button_ia.MoveAndShow(layout.button2);
 
     if (borrowed2)
       button2.MoveAndShow(layout.button2);

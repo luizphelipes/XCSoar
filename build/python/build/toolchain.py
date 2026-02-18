@@ -85,8 +85,18 @@ class Toolchain:
         import shutil
         bin_dir = os.path.join(install_prefix, 'bin')
         os.makedirs(bin_dir, exist_ok=True)
-        self.pkg_config = shutil.copy(os.path.join(top_path, 'build', 'pkg-config.sh'),
-                                      os.path.join(bin_dir, 'pkg-config'))
+        self.pkg_config = os.path.join(bin_dir, 'pkg-config')
+        try:
+            shutil.copy(os.path.join(top_path, 'build', 'pkg-config.sh'),
+                        self.pkg_config)
+        except PermissionError:
+            # On WSL with /mnt/d/, shutil.copy fails because it tries to chmod the file,
+            # which is not permitted on NTFS. However, the file is usually copied.
+            if not os.path.exists(self.pkg_config):
+                # If it didn't even copy, try copyfile
+                shutil.copyfile(os.path.join(top_path, 'build', 'pkg-config.sh'),
+                                self.pkg_config)
+
         self.env['PKG_CONFIG'] = self.pkg_config
 
         # WORKAROUND: Under some circumstances, if QEMU User Emulation is

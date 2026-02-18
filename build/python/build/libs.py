@@ -474,6 +474,22 @@ lua = LuaProject(
     patches=abspath("lib/lua/patches"),
 )
 
+espeak_ng = AutotoolsProject(
+    "https://github.com/espeak-ng/espeak-ng/releases/download/1.51/espeak-ng-1.51.tar.gz",
+    "f74676644f6f9661f03f39a0994f71120025f187a4192b02a281867140e74f32",
+    "include/espeak-ng/speak_lib.h",
+    [
+        "--disable-shared",
+        "--enable-static",
+        "--with-pcaudiolib=no",
+        "--with-klatt=no",
+        "--with-speechplayer=no",
+        "--with-async=no",
+    ],
+    name="espeak-ng",
+    version="1.51",
+)
+
 libsalsa = AutotoolsProject(
     (
         "ftp://ftp.suse.com/pub/people/tiwai/salsa-lib/salsa-lib-0.1.6.tar.bz2",

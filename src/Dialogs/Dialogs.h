@@ -10,6 +10,7 @@ void dlgBasicSettingsShowModal();
 void dlgChecklistShowModal();
 void dlgConfigurationShowModal();
 void dlgConfigFontsShowModal();
+void dlgAIAssistantShowModal();
 
 void ShowWindSettingsDialog();
 

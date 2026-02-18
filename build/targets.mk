@@ -412,8 +412,16 @@ ifeq ($(TARGET),ANDROID)
     ANDROID_HOST_TAG = windows
   else ifeq ($(UNAME_M),x86_64)
     ANDROID_HOST_TAG = linux-x86_64
+    ifneq ($(wildcard $(ANDROID_NDK)/toolchains/llvm/prebuilt/windows-x86_64),)
+      ANDROID_HOST_TAG = windows-x86_64
+      LLVM_SUFFIX = .exe
+    endif
   else
     ANDROID_HOST_TAG = linux-x86
+    ifneq ($(wildcard $(ANDROID_NDK)/toolchains/llvm/prebuilt/windows),)
+      ANDROID_HOST_TAG = windows
+      LLVM_SUFFIX = .exe
+    endif
   endif
 
   LLVM_PREFIX = $(ANDROID_NDK)/toolchains/llvm/prebuilt/$(ANDROID_HOST_TAG)/bin/

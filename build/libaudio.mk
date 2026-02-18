@@ -21,6 +21,7 @@ AUDIO_SRC_DIR = $(SRC)/Audio
 AUDIO_SOURCES = \
 	$(AUDIO_SRC_DIR)/ToneSynthesiser.cpp \
 	$(AUDIO_SRC_DIR)/VarioSynthesiser.cpp \
+	$(AUDIO_SRC_DIR)/TTSManager.cpp \
 	$(AUDIO_SRC_DIR)/PCMPlayer.cpp
 
 ifeq ($(TARGET),ANDROID)

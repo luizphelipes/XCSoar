@@ -299,4 +299,8 @@ constexpr std::string_view DisclaimerAcknowledgedVersion =
   "DisclaimerAcknowledgedVersion";
 constexpr std::string_view LastSeenNewsVersion =
   "LastSeenNewsVersion";
+
+constexpr std::string_view AIAssistantEnabled = "AIAssistantEnabled";
+constexpr std::string_view AIAssistantKey = "AIAssistantKey";
+constexpr std::string_view AIAssistantLanguage = "AIAssistantLanguage";
 }

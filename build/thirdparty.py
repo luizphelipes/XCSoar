@@ -85,6 +85,7 @@ elif toolchain.is_android:
         proj,
         libtiff,
         libgeotiff,
+        espeak_ng,
     ]
 elif '-kobo-linux-' in host_triplet:
     thirdparty_libs = [

@@ -151,4 +151,10 @@ Profile::Load(const ProfileMap &map, UISettings &settings)
   Load(map, settings.pages);
   Load(map, settings.dialog);
   Load(map, settings.sound);
+
+  map.Get(ProfileKeys::AIAssistantEnabled, settings.ai.enable_flight_assistant);
+  map.Get(ProfileKeys::AIAssistantKey, settings.ai.api_key.buffer(),
+          settings.ai.api_key.capacity());
+  map.Get(ProfileKeys::AIAssistantLanguage, settings.ai.language.buffer(),
+          settings.ai.language.capacity());
 }

@@ -39,4 +39,5 @@ UISettings::SetDefaults() noexcept
   pages.SetDefaults();
   dialog.SetDefaults();
   sound.SetDefaults();
+  ai.SetDefaults();
 }
